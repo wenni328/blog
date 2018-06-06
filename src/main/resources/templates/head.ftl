@@ -1,3 +1,6 @@
+<#--layui -->
+<script src="static/layui/layui.js"></script>
+<link rel="stylesheet" href="static/layui/css/layui.css">
 <hr>
 <!-- nav start -->
 <nav class="am-g am-g-fixed blog-fixed blog-nav">

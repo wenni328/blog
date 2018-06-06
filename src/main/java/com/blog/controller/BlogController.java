@@ -10,6 +10,8 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,7 +25,7 @@ import java.util.Date;
 public class BlogController {
     @Autowired
     private BlogMapper blogMapper;
-
+    //RequestMappingHandlerMapping
     @RequestMapping("/listPage")
     @ApiOperation(httpMethod = "POST", value = "分页查询Blog", notes = "分页查询Blog，每页默认10条，分页插件PageHelper")
     @ApiImplicitParam(name = "blog", value = "当前页数", required = true, dataType = "Blog")
@@ -43,8 +45,6 @@ public class BlogController {
     @RequestMapping("/detail")
     @ApiOperation(httpMethod = "POST", value = "查询博客详细信息", notes = "根据id查询博客信息")
     @ApiImplicitParam(name = "blog", value = "博客id", required = true, dataType = "Integer")
-    //缓存得key，默认是传入得id
-    @Cacheable(cacheNames = "blog")
     public Blog detail(Blog blog) {
         return blogMapper.selectOne(blog);
     }
