@@ -153,21 +153,16 @@
             if ($("#title").val() == null) {
                 return "标题不能为空";
             }
-            layerHtml=' <div class="layui-form-item" style="padding:50px;">\n' +
-                    '    <label class="layui-form-label">单行输入框</label>\n' +
-                    '    <div class="layui-input-inline">\n' +
-                    '      <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input">\n' +
-                    '    </div>\n' +
-                    '  </div>';
+            layerHtml='<input type="checkbox" name="" title="写作" checked>';
             layer.open({
-                type: 1 //Page层类型
+                type: 2 //Page层类型
                 , area: ['800px', '500px']
                 , title: '发布博客'
                 , shade: 0.6 //遮罩透明度
                 , maxmin: true //允许全屏最小化
                 ,shadeClose: true //点击遮罩关闭
                 , anim: 1 //0-6的动画形式，-1不开启
-                , content: layerHtml
+                , content: "layer"
             });
         })
     });

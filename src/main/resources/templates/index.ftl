@@ -24,17 +24,13 @@
 
 <body id="blog">
 <#include "head.ftl">
-<#include "img.ftl">
+<#--<#include "img.ftl">-->
 
 <!-- content srart -->
 <div class="am-g am-g-fixed blog-fixed">
-    <div class="am-u-md-8 am-u-sm-12 article-data">
-
-
-        <ul class="am-pagination">
-            <li class="am-pagination-prev"><a href="">&laquo; Prev</a></li>
-            <li class="am-pagination-next"><a href="">Next &raquo;</a></li>
-        </ul>
+    <div class="am-u-md-8 am-u-sm-12">
+<div class="article-data"></div>
+        <div id="layui-page"></div>
     </div>
 
     <div class="am-u-md-4 am-u-sm-12 blog-sidebar">
@@ -130,43 +126,51 @@
 <script src="static/assets/js/amazeui.min.js"></script>
 
 <script>
-    $(function () {
-        data(1);
-    });
-    layui.use(['laypage', 'layer'], function() {
-        var laypage = layui.laypage
-                , layer = layui.layer;
 
-        //不显示首页尾页
-        laypage.render({
-            elem: 'demo4'
-            , count: 100
-            , first: false
-            , last: false
+    dataPage();
+    function dataPage(curr) {
+        var data={pageNum:curr||1};
+        $.post("blog/blog", data, function (msg) {
+            var result = '';
+            $(function() {
+                $.each(msg.data, function (index, value) {
+                    result += '<article class="am-g blog-entry-article">\n' +
+                            '    <div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-img">\n' +
+                            '        <img src="' + value.picture + '" alt="" class="am-u-sm-12">\n' +
+                            '    </div>\n' +
+                            '    <div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-text">\n' +
+                            '        <span><a href="" class="blog-color">article&nbsp;</a></span>\n' +
+                            '        <span> ' + value.author + ' &nbsp;</span>\n' +
+                            '        <span>' + value.createTime + '</span>\n' +
+                            '        <h1><a href="">' + value.title + ' </a></h1>\n' +
+                            '        <p>' + sub(value.content) + '\n' +
+                            '        </p>\n' +
+                            '        <p><a href="" class="blog-continue">continue reading</a></p>\n' +
+                            '    </div>\n' +
+                            '</article>';
+                });
+                $(".article-data").html(result);
+            });
+            /*layuipage分页*/
+            layui.use(['laypage', 'layer'], function() {
+                var laypage = layui.laypage
+                        , layer = layui.layer;
+            laypage.render({
+                elem: 'layui-page'
+                        ,theme: '#404553'
+                        ,layout: ['count','prev', 'page', 'next', 'skip']
+                        ,count: msg.count //通过后台拿到的总页数
+                        ,curr: curr || 1//当前页
+                ,limit: 5
+                ,jump: function(obj, first){ //触发分页后的回调
+                    if(!first){ //点击跳页触发函数自身，并传递当前页：obj.curr
+                        $(".article-data").text('');
+                        dataPage(obj.curr);
+                    }
+                }
+            });
         });
     });
-    function data(currentPage) {
-        $.post("blog/listPage", {"pageNum": currentPage}, function (data) {
-            var result = '';
-            $.each(data, function (index, value) {
-                var html = '<article class="am-g blog-entry-article">\n' +
-                        '    <div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-img">\n' +
-                        '        <img src="' + value.picture + '" alt="" class="am-u-sm-12">\n' +
-                        '    </div>\n' +
-                        '    <div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-text">\n' +
-                        '        <span><a href="" class="blog-color">article&nbsp;</a></span>\n' +
-                        '        <span> ' + value.author + ' &nbsp;</span>\n' +
-                        '        <span>' + value.createTime + '</span>\n' +
-                        '        <h1><a href="">' + value.title + ' </a></h1>\n' +
-                        '        <p>' + sub(value.content) + '\n' +
-                        '        </p>\n' +
-                        '        <p><a href="" class="blog-continue">continue reading</a></p>\n' +
-                        '    </div>\n' +
-                        '</article>';
-                result = result + html;
-            });
-            $(".article-data").html(result);
-        });
     }
 
     function sub(str) {

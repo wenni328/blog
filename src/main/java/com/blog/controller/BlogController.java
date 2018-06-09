@@ -1,23 +1,27 @@
 package com.blog.controller;
 
+import com.blog.base.utils.layui.Layui;
 import com.blog.entity.Blog;
 import com.blog.mapper.BlogMapper;
 import com.github.pagehelper.PageHelper;
-import io.swagger.annotations.*;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
-import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 
 @RestController
 @RequestMapping("/blog")
@@ -25,13 +29,16 @@ import java.util.Date;
 public class BlogController {
     @Autowired
     private BlogMapper blogMapper;
+
     //RequestMappingHandlerMapping
-    @RequestMapping("/listPage")
+    @RequestMapping(value = "blog", method = RequestMethod.POST)
     @ApiOperation(httpMethod = "POST", value = "分页查询Blog", notes = "分页查询Blog，每页默认10条，分页插件PageHelper")
     @ApiImplicitParam(name = "blog", value = "当前页数", required = true, dataType = "Blog")
-    public Object listBlog(final Blog blog) {
-        PageHelper.startPage(blog.getPageNum(), 10);
-        return blogMapper.select(null);
+    public Layui listBlog(final Blog blog) {
+        int total = blogMapper.select(blog).size();
+        PageHelper.startPage(blog.getPageNum(), 5);
+        List<Blog> result = blogMapper.select(blog);
+        return Layui.data(total, result);
     }
 
     @RequestMapping("/insert")

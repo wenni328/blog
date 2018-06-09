@@ -32,6 +32,11 @@ public class BlogApplication {
         //log.debug("进入页面："+path+".ftl");
         return "markerdown";
     }
+    @RequestMapping("/layer")
+    public String layer(/*@PathVariable String path*/) {
+        //log.debug("进入页面："+path+".ftl");
+        return "layer";
+    }
 
     @RequestMapping({"/age/${age}","/age/null"})
     @ResponseBody

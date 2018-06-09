@@ -45,12 +45,10 @@ mapper:
   not-empty: false
 pagehelper:
   reasonable: true
-  #dialect: com.github.pagehelper.dialect.helper.MySqlDialect
   auto-dialect: true
   offset-as-page-num: true
   row-bounds-with-count: true
-  helper-dialect: com.github.pagehelper.dialect.helper.MySqlDialect
-  dialect: com.github.pagehelper.dialect.helper.MySqlDialect
+  helper-dialect: mysql
 
 
 
