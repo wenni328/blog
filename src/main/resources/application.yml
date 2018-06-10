@@ -49,7 +49,3 @@ pagehelper:
   offset-as-page-num: true
   row-bounds-with-count: true
   helper-dialect: mysql
-
-
-
-

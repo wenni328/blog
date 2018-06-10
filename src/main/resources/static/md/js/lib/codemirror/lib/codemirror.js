@@ -4014,15 +4014,15 @@
 
         e.dataTransfer.setData("Text", cm.getSelection());
 
-        // Use dummy image instead of default browsers image.
+        // Use dummy images instead of default browsers images.
         // Recent Safari (~6.0.2) have a tendency to segfault when this happens, so we don't do it there.
         if (e.dataTransfer.setDragImage && !safari) {
             var img = elt("img", null, null, "position: fixed; left: 0; top: 0;");
-            img.src = "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==";
+            img.src = "data:images/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==";
             if (presto) {
                 img.width = img.height = 1;
                 cm.display.wrapper.appendChild(img);
-                // Force a relayout, or Opera won't use our image for some obscure reason
+                // Force a relayout, or Opera won't use our images for some obscure reason
                 img._top = img.offsetTop;
             }
             e.dataTransfer.setDragImage(img, 0, 0);

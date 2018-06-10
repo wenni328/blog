@@ -139,34 +139,77 @@
             },
             toolbarHandlers: {
                 testIcon2: function (cm, icon, cursor, selection) {
-                    alert(1);
                     console.log($(".editormd-html-textarea").val());
                     console.log($(".editormd-markdown-textarea").val());
                 }
             }
         });
     });
+    var la='';
+    $.getJSON("types/",{},function(msg){
+        var layerHtml = '';
+        /*弹框*/
+        layerHtml+='<form class="layui-form" action="">\n' +
+                '    <div clasvars="layui-form-item">\n' +
+                '        <label class="layui-form-label" style="padding-top: 40px;width: 100px;">文章标签</label>\n' +
+                '        <div class="layui-input-block" style="padding-right: 50px;padding-top: 30px;">\n' +
+                '            <input name="number" id="mark" class="layui-input" placeholder="文章标签空格隔开">\n' +
+                '        </div>\n' +
+                '    </div>\n' +
+                '    <div class="layui-form-item">\n' +
+                '        <label class="layui-form-label" style="padding-top: 40px;width: 100px;">个人分类</label>\n' +
+                '        <div class="layui-input-block" style="height: 200px;padding-top: 30px;overflow: auto;float: left;margin-left: 10px;">\n';
 
+
+                 //<button class="layui-btn layui-btn-sm layui-btn-radius" onclick="addType()">添加分类</button>
+        $.each(msg, function (index, value) {
+            layerHtml+='<input type="checkbox" class="typeName" name="types" value="'+value.id+'" title="'+value.name+'">';
+        });
+        la=layerHtml;
+        la+='</div>\n' +
+                '    </div>\n' +
+                '</form>';
+    });
     layui.use(['layer','form'], function(){
-        var layer = layui.layer,form = layui.form;
+        var layer = layui.layer,form = layui.form,
+        $=layui.$;
         $(".btn-fabu").click(function () {
             if ($("#title").val() == null) {
                 return "标题不能为空";
             }
-            layerHtml='<input type="checkbox" name="" title="写作" checked>';
             layer.open({
-                type: 2 //Page层类型
+                type: 1 //Page层类型
                 , area: ['800px', '500px']
                 , title: '发布博客'
                 , shade: 0.6 //遮罩透明度
                 , maxmin: true //允许全屏最小化
                 ,shadeClose: true //点击遮罩关闭
                 , anim: 1 //0-6的动画形式，-1不开启
-                , content: "layer"
+                , content: la
+                , btn: ['确定发布','取消']
+                ,btnAlign: 'c'
+                , yes: function(index, layero){
+                    var data={};
+                    data['title']=$("#title").val();
+                    data['content']=$(".editormd-markdown-textarea").val();
+                    data['mark']=$("#mark").val();
+                    var types='';
+                    $("input:checkbox[name='types']:checked").each(function() { // 遍历name=standard的多选框
+                        types += ',' + $(this).val();
+                        //types += ',' + $(this).attr('title');
+                    });
+                   data['sorts']=types;
+                    $.post("blog/save",data,function(msg){
+                      if (msg.code==200){
+                          layer.msg("发布成功");
+                      }
+                    });
+                    layer.close(index); //如果设定了yes回调，需进行手工关闭
+                }
             });
-        })
+            form.render();
+        });
     });
-    var layerHtml="";
 
 </script>
 

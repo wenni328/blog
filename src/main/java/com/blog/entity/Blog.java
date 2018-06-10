@@ -34,7 +34,7 @@ public class Blog implements Serializable {
 
     private String mark;
     @Column(name = "sorts")
-    private Integer sorts;
+    private String sorts;
 
     private String picture;
     @Transient

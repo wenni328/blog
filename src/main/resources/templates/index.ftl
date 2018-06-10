@@ -136,7 +136,7 @@
                 $.each(msg.data, function (index, value) {
                     result += '<article class="am-g blog-entry-article">\n' +
                             '    <div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-img">\n' +
-                            '        <img src="' + value.picture + '" alt="" class="am-u-sm-12">\n' +
+                            '        <img src="' + value.picture + '" alt="" class="am-u-sm-12" style="height: 150px">\n' +
                             '    </div>\n' +
                             '    <div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-text">\n' +
                             '        <span><a href="" class="blog-color">article&nbsp;</a></span>\n' +

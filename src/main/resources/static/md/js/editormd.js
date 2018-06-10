@@ -2955,7 +2955,7 @@
         },
 
         image: function () {
-            this.executePlugin("imageDialog", "image-dialog/image-dialog");
+            this.executePlugin("imageDialog", "images-dialog/images-dialog");
         },
 
         code: function () {

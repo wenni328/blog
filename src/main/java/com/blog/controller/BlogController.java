@@ -1,5 +1,7 @@
 package com.blog.controller;
 
+import com.blog.base.Responce;
+import com.blog.base.utils.images.RandomImagesUtils;
 import com.blog.base.utils.layui.Layui;
 import com.blog.entity.Blog;
 import com.blog.mapper.BlogMapper;
@@ -30,7 +32,6 @@ public class BlogController {
     @Autowired
     private BlogMapper blogMapper;
 
-    //RequestMappingHandlerMapping
     @RequestMapping(value = "blog", method = RequestMethod.POST)
     @ApiOperation(httpMethod = "POST", value = "分页查询Blog", notes = "分页查询Blog，每页默认10条，分页插件PageHelper")
     @ApiImplicitParam(name = "blog", value = "当前页数", required = true, dataType = "Blog")
@@ -41,12 +42,15 @@ public class BlogController {
         return Layui.data(total, result);
     }
 
-    @RequestMapping("/insert")
+    @RequestMapping(value = "/save",method = RequestMethod.POST)
     @ApiOperation(httpMethod = "POST", value = "插入博客信息", notes = "插入博客信息，默认时间为当前时间")
     @ApiImplicitParam(name = "blog", value = "插入博客信息", required = true, dataType = "Blog")
-    public int insert(Blog blog) {
+    public Responce insert(Blog blog) {
         blog.setCreateTime(new Date());
-        return blogMapper.insert(blog);
+        blog.setAuthor("谢勇");
+        blog.setPicture(RandomImagesUtils.getImage());
+         blogMapper.insert(blog);
+         return Responce.ok();
     }
 
     @RequestMapping("/detail")
@@ -59,7 +63,7 @@ public class BlogController {
     @RequestMapping(value = "/uploadfile", method = RequestMethod.POST)
     @ApiOperation(httpMethod = "POST", value = "markerdown图片上传，返回格式固定", notes = "图片存放地址为当前项目下的:static\\upload")
     @ApiImplicitParam(name = "attach,", value = "文件信息", required = false, dataType = "MultipartFile", paramType = "data")
-    public void hello(HttpServletRequest request, HttpServletResponse response, @RequestParam(value = "editormd-image-file", required = false) MultipartFile attach) {
+    public void hello(HttpServletRequest request, HttpServletResponse response, @RequestParam(value = "editormd-images-file", required = false) MultipartFile attach) {
         try {
             request.setCharacterEncoding("utf-8");
             response.setHeader("Content-Type", "text/html");

@@ -511,7 +511,7 @@
     MT("linkNoTitle",
         "[link [[foo]]][string (http://example.com/)] bar");
 
-    // Inline link with image
+    // Inline link with images
     MT("linkImage",
         "[link [[][tag ![[foo]]][string (http://example.com/)][link ]]][string (http://example.com/)] bar");
 

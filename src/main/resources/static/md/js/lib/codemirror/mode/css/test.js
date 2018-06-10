@@ -128,8 +128,8 @@
 
     MT("parens",
         "[qualifier .foo] {",
-        "  [property background-image]: [variable fade]([atom #000], [number 20%]);",
-        "  [property border-image]: [atom linear-gradient](",
+        "  [property background-images]: [variable fade]([atom #000], [number 20%]);",
+        "  [property border-images]: [atom linear-gradient](",
         "    [atom to] [atom bottom],",
         "    [variable fade]([atom #000], [number 20%]) [number 0%],",
         "    [variable fade]([atom #000], [number 20%]) [number 100%]",

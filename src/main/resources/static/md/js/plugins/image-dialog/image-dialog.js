@@ -1,7 +1,7 @@
 /*!
  * Image (upload) dialog plugin for Editor.md
  *
- * @file        image-dialog.js
+ * @file        images-dialog.js
  * @author      pandao
  * @version     1.3.4
  * @updateTime  2015-06-09
@@ -13,7 +13,7 @@
 
     var factory = function (exports) {
 
-        var pluginName = "image-dialog";
+        var pluginName = "images-dialog";
 
         exports.fn.imageDialog = function () {
 
@@ -26,7 +26,7 @@
             var selection = cm.getSelection();
             var imageLang = lang.dialog.image;
             var classPrefix = this.classPrefix;
-            var iframeName = classPrefix + "image-iframe";
+            var iframeName = classPrefix + "images-iframe";
             var dialogName = classPrefix + pluginName, dialog;
 
             cm.focus();
@@ -41,7 +41,7 @@
                 var action = settings.imageUploadURL + (settings.imageUploadURL.indexOf("?") >= 0 ? "&" : "?") + "guid=" + guid;
 
                 if (settings.crossDomainUpload) {
-                    action += "&callback=" + settings.uploadCallbackURL + "&dialog_id=editormd-image-dialog-" + guid;
+                    action += "&callback=" + settings.uploadCallbackURL + "&dialog_id=editormd-images-dialog-" + guid;
                 }
 
                 var dialogContent = ((settings.imageUpload) ? "<form action=\"" + action + "\" target=\"" + iframeName + "\" method=\"post\" enctype=\"multipart/form-data\" class=\"" + classPrefix + "form\">" : "<div class=\"" + classPrefix + "form\">") +
@@ -49,7 +49,7 @@
                     "<label>" + imageLang.url + "</label>" +
                     "<input type=\"text\" data-url />" + (function () {
                         return (settings.imageUpload) ? "<div class=\"" + classPrefix + "file-input\">" +
-                            "<input type=\"file\" name=\"" + classPrefix + "image-file\" accept=\"image/*\" />" +
+                            "<input type=\"file\" name=\"" + classPrefix + "images-file\" accept=\"images/*\" />" +
                             "<input type=\"submit\" value=\"" + imageLang.uploadButton + "\" />" +
                             "</div>" : "";
                     })() +
@@ -62,7 +62,7 @@
                     "<br/>" +
                     ((settings.imageUpload) ? "</form>" : "</div>");
 
-                //var imageFooterHTML = "<button class=\"" + classPrefix + "btn " + classPrefix + "image-manager-btn\" style=\"float:left;\">" + imageLang.managerButton + "</button>";
+                //var imageFooterHTML = "<button class=\"" + classPrefix + "btn " + classPrefix + "images-manager-btn\" style=\"float:left;\">" + imageLang.managerButton + "</button>";
 
                 dialog = this.createDialog({
                     title: imageLang.title,
@@ -114,13 +114,13 @@
                     }
                 });
 
-                dialog.attr("id", classPrefix + "image-dialog-" + guid);
+                dialog.attr("id", classPrefix + "images-dialog-" + guid);
 
                 if (!settings.imageUpload) {
                     return;
                 }
 
-                var fileInput = dialog.find("[name=\"" + classPrefix + "image-file\"]");
+                var fileInput = dialog.find("[name=\"" + classPrefix + "images-file\"]");
 
                 fileInput.bind("change", function () {
                     var fileName = fileInput.val();
