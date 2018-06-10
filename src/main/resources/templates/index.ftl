@@ -125,6 +125,16 @@
 <![endif]-->
 <script src="static/assets/js/amazeui.min.js"></script>
 
+<#--md js引入-->
+<script src="static/md/js/lib/marked.min.js"></script>
+<script src="static/md/js/lib/prettify.min.js"></script>
+<script src="static/md/js/lib/raphael.min.js"></script>
+<script src="static/md/js/lib/underscore.min.js"></script>
+<script src="static/md/js/lib/sequence-diagram.min.js"></script>
+<script src="static/md/js/lib/flowchart.min.js"></script>
+<script src="static/md/js/lib/jquery.flowchart.min.js"></script>
+<script src="static/md/js/editormd.js"></script>
+
 <script>
 
     dataPage();
@@ -143,7 +153,7 @@
                             '        <span> ' + value.author + ' &nbsp;</span>\n' +
                             '        <span>' + value.createTime + '</span>\n' +
                             '        <h1><a href="">' + value.title + ' </a></h1>\n' +
-                            '        <p>' + sub(value.content) + '\n' +
+                            '        <p id="markerdown">' + sub(value.content) + '\n' +
                             '        </p>\n' +
                             '        <p><a href="" class="blog-continue">continue reading</a></p>\n' +
                             '    </div>\n' +
@@ -177,6 +187,15 @@
         return str.substr(0, 60) + "......";
     }
 </script>
-
+<script type="text/javascript">
+    testEditormdView2 = editormd.markdownToHTML("markerdown", {
+        htmlDecode      : "style,script,iframe",  // you can filter tags decode
+        emoji           : true,
+        taskList        : true,
+        tex             : true,  // 默认不解析
+        flowChart       : true,  // 默认不解析
+        sequenceDiagram : true,  // 默认不解析
+    });
+</script>
 </body>
 </html>
