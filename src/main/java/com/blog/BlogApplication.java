@@ -37,6 +37,10 @@ public class BlogApplication {
         //log.debug("进入页面："+path+".ftl");
         return "layer";
     }
+    @RequestMapping("/detail")
+    public String detail() {
+        return "detail";
+    }
 
     @RequestMapping({"/age/${age}","/age/null"})
     @ResponseBody

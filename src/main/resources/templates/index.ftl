@@ -152,8 +152,8 @@
                             '        <span><a href="" class="blog-color">article&nbsp;</a></span>\n' +
                             '        <span> ' + value.author + ' &nbsp;</span>\n' +
                             '        <span>' + value.createTime + '</span>\n' +
-                            '        <h1><a href="">' + value.title + ' </a></h1>\n' +
-                            '        <p id="markerdown">' + sub(value.content) + '\n' +
+                            '        <h1><a href="detail?id='+value.id+'">' + value.title + ' </a></h1>\n' +
+                            '        <p id="markerdown">' + sub(value.html) + '\n' +
                             '        </p>\n' +
                             '        <p><a href="" class="blog-continue">continue reading</a></p>\n' +
                             '    </div>\n' +
@@ -184,18 +184,9 @@
     }
 
     function sub(str) {
-        return str.substr(0, 60) + "......";
+        return str.substr(0, 220) + "......";
     }
 </script>
-<script type="text/javascript">
-    testEditormdView2 = editormd.markdownToHTML("markerdown", {
-        htmlDecode      : "style,script,iframe",  // you can filter tags decode
-        emoji           : true,
-        taskList        : true,
-        tex             : true,  // 默认不解析
-        flowChart       : true,  // 默认不解析
-        sequenceDiagram : true,  // 默认不解析
-    });
-</script>
+
 </body>
 </html>

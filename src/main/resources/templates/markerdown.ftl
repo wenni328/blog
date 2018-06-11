@@ -192,6 +192,7 @@
                     var data={};
                     data['title']=$("#title").val();
                     data['content']=$(".editormd-markdown-textarea").val();
+                    data['html']=$(".editormd-html-textarea").val();
                     data['mark']=$("#mark").val();
                     var types='';
                     $("input:checkbox[name='types']:checked").each(function() { // 遍历name=standard的多选框
@@ -202,6 +203,7 @@
                     $.post("blog/save",data,function(msg){
                       if (msg.code==200){
                           layer.msg("发布成功");
+                          window.location.href="/";
                       }
                     });
                     layer.close(index); //如果设定了yes回调，需进行手工关闭

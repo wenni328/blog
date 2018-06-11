@@ -26,6 +26,8 @@ public class Blog implements Serializable {
 
     private String content;
 
+    private String html;
+
     @Column(name = "createTime")
     @ApiModelProperty(value = "创建时间")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")

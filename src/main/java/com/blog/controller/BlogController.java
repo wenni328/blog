@@ -12,10 +12,7 @@ import io.swagger.annotations.ApiOperation;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -53,10 +50,12 @@ public class BlogController {
          return Responce.ok();
     }
 
-    @RequestMapping("/detail")
-    @ApiOperation(httpMethod = "POST", value = "查询博客详细信息", notes = "根据id查询博客信息")
-    @ApiImplicitParam(name = "blog", value = "博客id", required = true, dataType = "Integer")
-    public Blog detail(Blog blog) {
+    @RequestMapping(value = "/detail/${id}",method = RequestMethod.GET)
+    @ApiOperation(httpMethod = "GET", value = "查询博客详细信息", notes = "根据id查询博客信息")
+    @ApiImplicitParam(name = "id", value = "博客id", required = true, dataType = "Integer")
+    public Blog detail(@PathVariable Integer id) {
+        Blog blog=new Blog();
+        blog.setId(id);
         return blogMapper.selectOne(blog);
     }
 
