@@ -20,6 +20,7 @@
     <meta name="msapplication-TileColor" content="#0e90d2">
     <link rel="stylesheet" href="static/assets/css/amazeui.min.css">
     <link rel="stylesheet" href="static/assets/css/app.css">
+    <link rel="stylesheet" href="static/layui/css/layui.css">
 </head>
 
 <body id="blog">
@@ -134,7 +135,7 @@
 <script src="static/md/js/lib/flowchart.min.js"></script>
 <script src="static/md/js/lib/jquery.flowchart.min.js"></script>
 <script src="static/md/js/editormd.js"></script>
-
+<script src="static/layui/layui.js"></script>
 <script>
 
     dataPage();
@@ -148,12 +149,12 @@
                             '    <div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-img">\n' +
                             '        <img src="' + value.picture + '" alt="" class="am-u-sm-12" style="height: 150px">\n' +
                             '    </div>\n' +
-                            '    <div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-text">\n' +
+                            '    <div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-text" style="height: 140px;overflow:hidden;">\n' +
                             '        <span><a href="" class="blog-color">article&nbsp;</a></span>\n' +
                             '        <span> ' + value.author + ' &nbsp;</span>\n' +
                             '        <span>' + value.createTime + '</span>\n' +
-                            '        <h1><a href="detail?id='+value.id+'">' + value.title + ' </a></h1>\n' +
-                            '        <p id="markerdown">' + sub(value.html) + '\n' +
+                            '        <h1><a href="blog/detail?id='+value.id+'">' + value.title + ' </a></h1>\n' +
+                            '        <p id="markerdown" >' + sub(value.html) + '\n' +
                             '        </p>\n' +
                             '        <p><a href="" class="blog-continue">continue reading</a></p>\n' +
                             '    </div>\n' +
@@ -184,7 +185,7 @@
     }
 
     function sub(str) {
-        return str.substr(0, 220) + "......";
+        return str.substr(0, 120) + "......";
     }
 </script>
 

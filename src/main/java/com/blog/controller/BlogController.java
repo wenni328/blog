@@ -12,6 +12,8 @@ import io.swagger.annotations.ApiOperation;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,7 +24,7 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping("/blog")
 @Api(value = "API - BlogController", produces = MediaType.APPLICATION_JSON_UTF8_VALUE, description = "Blog博客控制类")
 public class BlogController {
@@ -30,6 +32,7 @@ public class BlogController {
     private BlogMapper blogMapper;
 
     @RequestMapping(value = "blog", method = RequestMethod.POST)
+    @ResponseBody
     @ApiOperation(httpMethod = "POST", value = "分页查询Blog", notes = "分页查询Blog，每页默认10条，分页插件PageHelper")
     @ApiImplicitParam(name = "blog", value = "当前页数", required = true, dataType = "Blog")
     public Layui listBlog(final Blog blog) {
@@ -40,6 +43,7 @@ public class BlogController {
     }
 
     @RequestMapping(value = "/save",method = RequestMethod.POST)
+    @ResponseBody
     @ApiOperation(httpMethod = "POST", value = "插入博客信息", notes = "插入博客信息，默认时间为当前时间")
     @ApiImplicitParam(name = "blog", value = "插入博客信息", required = true, dataType = "Blog")
     public Responce insert(Blog blog) {
@@ -50,16 +54,18 @@ public class BlogController {
          return Responce.ok();
     }
 
-    @RequestMapping(value = "/detail/${id}",method = RequestMethod.GET)
+    @RequestMapping(value = "/detail",method = RequestMethod.GET)
     @ApiOperation(httpMethod = "GET", value = "查询博客详细信息", notes = "根据id查询博客信息")
     @ApiImplicitParam(name = "id", value = "博客id", required = true, dataType = "Integer")
-    public Blog detail(@PathVariable Integer id) {
+    public String detail(Integer id, Model model) {
         Blog blog=new Blog();
         blog.setId(id);
-        return blogMapper.selectOne(blog);
+        model.addAttribute("blog",blogMapper.selectOne(blog));
+        return "detail";
     }
 
     @RequestMapping(value = "/uploadfile", method = RequestMethod.POST)
+    @ResponseBody
     @ApiOperation(httpMethod = "POST", value = "markerdown图片上传，返回格式固定", notes = "图片存放地址为当前项目下的:static\\upload")
     @ApiImplicitParam(name = "attach,", value = "文件信息", required = false, dataType = "MultipartFile", paramType = "data")
     public void hello(HttpServletRequest request, HttpServletResponse response, @RequestParam(value = "editormd-images-file", required = false) MultipartFile attach) {

@@ -27,7 +27,7 @@ public class BlogApplication {
         return "index";
     }
 
-    @RequestMapping("/markerdown")
+    @RequestMapping(value = {"/markerdown","blog/markerdown"})
     public String markerdown(/*@PathVariable String path*/) {
         //log.debug("进入页面："+path+".ftl");
         return "markerdown";
@@ -36,10 +36,6 @@ public class BlogApplication {
     public String layer(/*@PathVariable String path*/) {
         //log.debug("进入页面："+path+".ftl");
         return "layer";
-    }
-    @RequestMapping("/detail")
-    public String detail() {
-        return "detail";
     }
 
     @RequestMapping({"/age/${age}","/age/null"})
