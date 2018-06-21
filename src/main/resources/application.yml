@@ -41,6 +41,10 @@ spring:
             path:
               logs: ./elasticsearch/log #elasticsearch日志存储目录
               data: ./elasticsearch/data #elasticsearch数据存储目录
+  # redis配置
+  redis:
+    cluster:
+      nodes: 127.0.0.1:6379
 mybatis:
   type-aliases-package: com.blog.entity
   mapper-locations: classpath*:mapper/*.xml
@@ -57,3 +61,4 @@ pagehelper:
   offset-as-page-num: true
   row-bounds-with-count: true
   helper-dialect: mysql
+

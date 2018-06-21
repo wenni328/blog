@@ -21,6 +21,5 @@ public class ESController {
     @RequestMapping(value = "search")
     public List<Blog> search(Integer pageNumber, Integer pageSize, String searchContent) {
         return blogService.search(pageNumber, pageSize, searchContent);
-
     }
 }
