@@ -14,7 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -42,7 +45,7 @@ public class BlogController {
         return Layui.data(total, result);
     }
 
-    @RequestMapping(value = "/save",method = RequestMethod.POST)
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation(httpMethod = "POST", value = "插入博客信息", notes = "插入博客信息，默认时间为当前时间")
     @ApiImplicitParam(name = "blog", value = "插入博客信息", required = true, dataType = "Blog")
@@ -50,17 +53,17 @@ public class BlogController {
         blog.setCreateTime(new Date());
         blog.setAuthor("谢勇");
         blog.setPicture(RandomImagesUtils.getImage());
-         blogMapper.insert(blog);
-         return Responce.ok();
+        blogMapper.insert(blog);
+        return Responce.ok();
     }
 
-    @RequestMapping(value = "/detail",method = RequestMethod.GET)
+    @RequestMapping(value = "/detail", method = RequestMethod.GET)
     @ApiOperation(httpMethod = "GET", value = "查询博客详细信息", notes = "根据id查询博客信息")
     @ApiImplicitParam(name = "id", value = "博客id", required = true, dataType = "Integer")
     public String detail(Integer id, Model model) {
-        Blog blog=new Blog();
+        Blog blog = new Blog();
         blog.setId(id);
-        model.addAttribute("blog",blogMapper.selectOne(blog));
+        model.addAttribute("blog", blogMapper.selectOne(blog));
         return "detail";
     }
 

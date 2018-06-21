@@ -33,6 +33,14 @@ spring:
 #下面这句不加的话http://localhost:8080/swagger-ui.html访问报错404
   resources:
     static-locations: classpath:/static/
+    #elasticsearch配置
+  data:
+    elasticsearch:
+      cluster-nodes: 192.168.199.112:9300
+      properties:
+            path:
+              logs: ./elasticsearch/log #elasticsearch日志存储目录
+              data: ./elasticsearch/data #elasticsearch数据存储目录
 mybatis:
   type-aliases-package: com.blog.entity
   mapper-locations: classpath*:mapper/*.xml

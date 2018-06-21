@@ -1,7 +1,6 @@
 package com.blog.controller;
 
 import com.blog.base.Responce;
-import com.blog.entity.Blog;
 import com.blog.entity.Types;
 import com.blog.mapper.TypesMapper;
 import io.swagger.annotations.ApiImplicitParam;
@@ -28,7 +27,7 @@ public class TypesController {
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     @ApiOperation(httpMethod = "POST", value = "添加类型", notes = "博客类型添加")
     @ApiImplicitParam(name = "types,", value = "博客实体", required = true, dataType = "com.blog.entity.Types", paramType = "types")
-    public Responce get(final Types types){
+    public Responce get(final Types types) {
         typesMapper.insert(types);
         return Responce.ok("添加成功");
     }

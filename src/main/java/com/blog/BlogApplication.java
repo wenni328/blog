@@ -5,7 +5,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import tk.mybatis.spring.annotation.MapperScan;
 
@@ -27,21 +28,22 @@ public class BlogApplication {
         return "index";
     }
 
-    @RequestMapping(value = {"/markerdown","blog/markerdown"})
+    @RequestMapping(value = {"/markerdown", "blog/markerdown"})
     public String markerdown(/*@PathVariable String path*/) {
         //log.debug("进入页面："+path+".ftl");
         return "markerdown";
     }
+
     @RequestMapping("/layer")
     public String layer(/*@PathVariable String path*/) {
         //log.debug("进入页面："+path+".ftl");
         return "layer";
     }
 
-    @RequestMapping({"/age/${age}","/age/null"})
+    @RequestMapping({"/age/${age}", "/age/null"})
     @ResponseBody
-    public String test(int age){
-       // DispatcherServlet
-        return age+"";
+    public String test(int age) {
+        // DispatcherServlet
+        return age + "";
     }
 }

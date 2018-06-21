@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
@@ -13,9 +14,10 @@ import java.util.Date;
 
 @Data
 @ApiModel
+@Document(indexName = "blog", type = "blog")
 public class Blog implements Serializable {
 
-    
+
     private Integer id;
 
     private String title;
