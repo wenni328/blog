@@ -4,6 +4,7 @@ import com.blog.base.es.service.BlogService;
 import com.blog.entity.Blog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -18,7 +19,7 @@ public class ESController {
     @Autowired
     private BlogService blogService;
 
-    @RequestMapping(value = "search")
+    @PostMapping(value = "search")
     public List<Blog> search(Integer pageNumber, Integer pageSize, String searchContent) {
         return blogService.search(pageNumber, pageSize, searchContent);
     }
